@@ -23,6 +23,9 @@ Triggers:
 - Config Change
 
 
-
+Health checks:
+- readinessProbe
+- livenessProbe
+- startupProbe
 
 
