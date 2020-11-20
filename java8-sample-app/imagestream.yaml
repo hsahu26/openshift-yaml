@@ -1,0 +1,16 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  labels:
+    app: java-sample
+    app.kubernetes.io/component: java-sample
+    app.kubernetes.io/instance: java-sample
+    app.kubernetes.io/name: java
+    app.kubernetes.io/part-of: sample-app
+    app.openshift.io/runtime: java
+    app.openshift.io/runtime-version: openjdk-8-el7
+  name: java-sample
+spec:
+  lookupPolicy:
+    local: false
+

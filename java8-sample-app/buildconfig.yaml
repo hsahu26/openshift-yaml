@@ -1,0 +1,48 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    app: java-sample
+    app.kubernetes.io/component: java-sample
+    app.kubernetes.io/instance: java-sample
+    app.kubernetes.io/name: java
+    app.kubernetes.io/part-of: sample-app
+    app.openshift.io/runtime: java
+    app.openshift.io/runtime-version: openjdk-8-el7
+  name: java-sample
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: java-sample:latest
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    contextDir: undertow-servlet
+    git:
+      uri: https://github.com/jboss-openshift/openshift-quickstarts
+    type: Git
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: java:openjdk-8-el7
+        namespace: openshift
+    type: Source
+  successfulBuildsHistoryLimit: 5
+  triggers:
+  - generic:
+      secretReference:
+        name: java-sample-generic-webhook-secret
+    type: Generic
+  - github:
+      secretReference:
+        name: java-sample-github-webhook-secret
+    type: GitHub
+  - imageChange:
+    type: ImageChange
+  - type: ConfigChange
+
